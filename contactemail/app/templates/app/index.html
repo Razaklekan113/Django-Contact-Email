@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+        h3 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-control:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+        .form-control.submit {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .form-control.submit:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .message-success {
+            color: green;
+        }
+        .message-error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3>Contact Form</h3>
+
+        {% if messages %}
+            {% for message in messages %}
+                <p class="message {% if message.tags %}message-success{% else %}message-error{% endif %}">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post" action="{% url 'index' %}">
+            {% csrf_token %}
+            <input type="email" name="recipient" class="form-control" placeholder="Recipient's email..." required>
+            <input type="text" name="subject" class="form-control" placeholder="Subject..." required>
+            <textarea name="message" class="form-control" placeholder="Message..." required></textarea>
+            <input type="submit" class="form-control submit" value="Send"/>
+        </form>
+    </div>
+</body>
+</html>
